@@ -52,7 +52,7 @@ public class Flower extends Product implements Maintainable {
         return null;
     }
 
-    public String display() {
+    private String display() {
         String ageString = "";
         if (this.ageInWeeks < this.numberOfWeeksInMonth) {
             ageString = this.ageInWeeks + " hetes";
@@ -66,10 +66,6 @@ public class Flower extends Product implements Maintainable {
 
     @Override
     public String toString() {
-        return "Flower {" +
-                "name=" + getName() +
-                ", ageInWeeks=" + getAgeInWeeks() +
-                ", price=" + getPrice() +
-                '}';
+        return display();
     }
 }

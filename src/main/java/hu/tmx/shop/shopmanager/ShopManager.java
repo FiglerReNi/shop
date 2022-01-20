@@ -13,6 +13,6 @@ public class ShopManager {
     }
 
     public void displayProductsDetails() {
-        this.products.forEach(p-> p.);
+        this.products.forEach(System.out::println);
     }
 }

@@ -47,17 +47,8 @@ public class Shoes extends Product implements Refundable {
         return this.size > this.baseSize ? this.largeShoesPrice : this.smallShoesPrice;
     }
 
-    public String display() {
-        return this.size + " méretű " + this.getBrandName() + " " + this.getName() + " - " + getPrice();
-    }
-
     @Override
     public String toString() {
-        return "Shoes {" +
-                "name=" + getName() +
-                ", brandName=" + brandName +
-                ", size=" + size +
-                ", price=" + getPrice() +
-                "}";
+        return this.size + " méretű " + this.getBrandName() + " " + this.getName() + " - " + getPrice();
     }
 }

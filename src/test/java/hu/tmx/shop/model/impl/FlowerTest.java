@@ -2,6 +2,76 @@ package hu.tmx.shop.model.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.time.LocalDate;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 class FlowerTest {
+
+    Flower flower;
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+    @BeforeEach
+    public void setUp(){
+        flower = new Flower("Liliom", 197);
+        System.setOut(new PrintStream(outputStreamCaptor));
+    }
+
+    @Test
+    public void receiveLargePrice(){
+        assertEquals(1394, flower.getPrice());
+    }
+
+    @Test
+    public void firstMaintainNeedIsTrue(){
+        assertTrue(flower.needMaintenance());
+    }
+
+    @Test
+    public void secondMaintainNeedIsTrue(){
+        flower.setLastMaintenanceDate(LocalDate.now().minusYears(3));
+        assertTrue(flower.needMaintenance());
+    }
+
+    @Test
+    public void firstMaintainNeedIsFalse(){
+        flower.setAgeInWeeks(3);
+        assertFalse(flower.needMaintenance());
+    }
+
+    @Test
+    public void secondMaintainNeedIsFalse(){
+        flower.setLastMaintenanceDate(LocalDate.now().minusYears(1));
+        assertFalse(flower.needMaintenance());
+    }
+
+    @Test
+    public void needMaintain(){
+        assertEquals("Öntözés", flower.maintain());
+        assertEquals(LocalDate.now(), flower.getLastMaintenanceDate());
+    }
+
+    @Test
+    public void noNeedMaintain(){
+        flower.setAgeInWeeks(3);
+        assertNull(flower.maintain());
+        assertNull(flower.getLastMaintenanceDate());
+    }
+
+    @Test
+    public void toStringIsCorrect(){
+        System.out.println(flower);
+        assertEquals("49 hónapos és 1 hetes Liliom - 1394", outputStreamCaptor.toString().trim());
+    }
+
+    @AfterEach
+    public void tearDown(){
+        flower = null;
+        System.setOut(standardOut);
+    }
 
 }
