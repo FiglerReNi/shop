@@ -29,11 +29,11 @@ class ShopManagerTest {
     }
 
     @Test
-    public void displayPriceIsCorrect(){
+    public void DisplayPriceIsCorrect(){
         shopManager.addAll(Arrays.asList(flower, shoes));
         shopManager.displayProductsDetails();
-        assertEquals("49 hónapos és 1 hetes Liliom - 1394"
-                + System.lineSeparator() + "44.0 méretű Adidas Cipő - 15000", outputStreamCaptor.toString().trim());
+        assertEquals("49 hónapos és 1 hetes Liliom - 1394.0"
+                + System.lineSeparator() + "44.0 méretű Adidas Cipő - 15000.0", outputStreamCaptor.toString().trim());
     }
 
     @AfterEach

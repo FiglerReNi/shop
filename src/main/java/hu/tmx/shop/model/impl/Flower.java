@@ -34,16 +34,16 @@ public class Flower extends Product implements Maintainable {
     @Override
     public boolean needMaintenance() {
         if (this.lastMaintenanceDate == null) {
-            return (this.ageInWeeks >= numberOfWeeksInYear * frequencyOfMaintenanceInYears);
+            return (this.ageInWeeks >= this.numberOfWeeksInYear * this.frequencyOfMaintenanceInYears);
         }
         int dateDiffForOtherMaintain = (int) ChronoUnit.WEEKS.between(this.lastMaintenanceDate, LocalDate.now());
-        return (dateDiffForOtherMaintain >= numberOfWeeksInYear * frequencyOfMaintenanceInYears);
+        return (dateDiffForOtherMaintain >= this.numberOfWeeksInYear * this.frequencyOfMaintenanceInYears);
     }
 
     @Override
     public String maintain() {
         if(needMaintenance()){
-            lastMaintenanceDate = LocalDate.now();
+            this.lastMaintenanceDate = LocalDate.now();
             return this.maintainType;
         }
         return null;
@@ -58,7 +58,7 @@ public class Flower extends Product implements Maintainable {
         } else {
             ageString = this.ageInWeeks / this.numberOfWeeksInMonth + " hónapos és " + this.ageInWeeks % this.numberOfWeeksInMonth + " hetes";
         }
-        return ageString + " " + this.getName() + " - " + getPrice();
+        return ageString + " " + getName() + " - " + getPrice();
     }
 
     @Override

@@ -39,7 +39,7 @@ class FlowerTest {
 
     @Test
     public void SecondMaintainNeedIsTrueIfPreviousMaintenanceOlderThan3Years(){
-        flower.setLastMaintenanceDate(LocalDate.now().minusWeeks(157));
+        flower.setLastMaintenanceDate(LocalDate.now().minusWeeks(200));
         assertTrue(flower.needMaintenance());
     }
 
