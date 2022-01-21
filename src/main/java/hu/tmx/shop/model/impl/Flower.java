@@ -50,7 +50,7 @@ public class Flower extends Product implements Maintainable {
     }
 
     private String display() {
-        String ageString = "";
+        String ageString;
         if (this.ageInWeeks < this.numberOfWeeksInMonth) {
             ageString = this.ageInWeeks + " hetes";
         } else if (this.ageInWeeks % this.numberOfWeeksInMonth == 0) {
