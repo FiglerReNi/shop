@@ -21,35 +21,46 @@ class ShoesTest {
     }
 
     @Test
-    public void receiveLargePrice(){
+    public void GetLargePriceIfSizeGreaterThan40(){
         assertEquals(15000, shoes.getPrice());
     }
 
     @Test
-    public void receiveSmallPrice(){
+    public void GetSmallPriceIfSizeSmallerThan40(){
+        shoes.setSize(38);
+        assertEquals(14000, shoes.getPrice());
+    }
+
+    @Test
+    public void GetSmallPriceIfSizeEqual40(){
         shoes.setSize(40);
         assertEquals(14000, shoes.getPrice());
     }
 
     @Test
-    public void firstDayRefundablePrice(){
+    public void GetRefundablePriceOfFirstDay(){
         assertEquals(15000, shoes.getPriceOfRefunds(LocalDate.now()));
     }
 
     @Test
-    public void SecondDayRefundablePrice(){
+    public void GetRefundablePriceOfSecondDay(){
         assertEquals(7500, shoes.getPriceOfRefunds(LocalDate.now().minusDays(1)));
     }
 
     @Test
-    public void NoRefundablePrice(){
+    public void NoRefundablePriceIfPassedDaysEqual50(){
+        assertEquals(0, shoes.getPriceOfRefunds(LocalDate.now().minusDays(50)));
+    }
+
+    @Test
+    public void NoRefundablePriceAfter50Days(){
         assertEquals(0, shoes.getPriceOfRefunds(LocalDate.now().minusDays(51)));
     }
 
     @Test
-    public void toStringIsCorrect(){
+    public void ToStringCorrect(){
         System.out.println(shoes);
-        assertEquals("44.0 méretű Adidas Cipő - 15000", outputStreamCaptor.toString().trim());
+        assertEquals("44.0 méretű Adidas Cipő - 15000.0", outputStreamCaptor.toString().trim());
     }
 
     @AfterEach

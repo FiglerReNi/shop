@@ -22,50 +22,56 @@ class FlowerTest {
     }
 
     @Test
-    public void receiveLargePrice(){
+    public void GetPrice(){
         assertEquals(1394, flower.getPrice());
     }
 
     @Test
-    public void firstMaintainNeedIsTrue(){
+    public void FirstMaintainNeedIsTrueIfFlowerOlderThan3Years(){
         assertTrue(flower.needMaintenance());
     }
 
     @Test
-    public void secondMaintainNeedIsTrue(){
-        flower.setLastMaintenanceDate(LocalDate.now().minusYears(3));
+    public void FirstMaintainNeedIsTrueIfFlower3Years(){
+        flower.setAgeInWeeks(156);
         assertTrue(flower.needMaintenance());
     }
 
     @Test
-    public void firstMaintainNeedIsFalse(){
-        flower.setAgeInWeeks(3);
+    public void SecondMaintainNeedIsTrueIfPreviousMaintenanceOlderThan3Years(){
+        flower.setLastMaintenanceDate(LocalDate.now().minusWeeks(157));
+        assertTrue(flower.needMaintenance());
+    }
+
+    @Test
+    public void FirstMaintainNeedIsFalseIfFlowerYoungerThan3Years(){
+        flower.setAgeInWeeks(10);
         assertFalse(flower.needMaintenance());
     }
 
     @Test
-    public void secondMaintainNeedIsFalse(){
-        flower.setLastMaintenanceDate(LocalDate.now().minusYears(1));
+    public void SecondMaintainNeedIsFalseIfPreviousMaintenanceYoungerThan3Years(){
+        flower.setLastMaintenanceDate(LocalDate.now().minusWeeks(52));
         assertFalse(flower.needMaintenance());
     }
 
     @Test
-    public void needMaintain(){
+    public void MaintainTypeIsCorrectIfFlowerNeedsMaintenance(){
         assertEquals("Öntözés", flower.maintain());
         assertEquals(LocalDate.now(), flower.getLastMaintenanceDate());
     }
 
     @Test
-    public void noNeedMaintain(){
-        flower.setAgeInWeeks(3);
+    public void MaintainTypeIsNullIfFlowerNoNeedMaintenance(){
+        flower.setAgeInWeeks(10);
         assertNull(flower.maintain());
         assertNull(flower.getLastMaintenanceDate());
     }
 
     @Test
-    public void toStringIsCorrect(){
+    public void ToStringCorrect(){
         System.out.println(flower);
-        assertEquals("49 hónapos és 1 hetes Liliom - 1394", outputStreamCaptor.toString().trim());
+        assertEquals("49 hónapos és 1 hetes Liliom - 1394.0", outputStreamCaptor.toString().trim());
     }
 
     @AfterEach

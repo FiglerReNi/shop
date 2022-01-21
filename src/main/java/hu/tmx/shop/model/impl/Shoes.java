@@ -27,24 +27,21 @@ public class Shoes extends Product implements Refundable {
         this.brandName = brandName;
     }
 
-
-    @Override
-    public double getPriceOfRefunds(LocalDate sellDate) {
-        if (null != sellDate) {
-            long days = ChronoUnit.DAYS.between(sellDate, LocalDate.now());
-            if (days == 0) {
-                return getPrice();
-            }
-            if (days < this.limitOfRefundsInDays) {
-                return getPrice() / 2;
-            }
-        }
-        return 0;
-    }
-
     @Override
     public double getPrice() {
         return this.size > this.baseSize ? this.largeShoesPrice : this.smallShoesPrice;
+    }
+
+    @Override
+    public double getPriceOfRefunds(LocalDate sellDate) {
+        long daysSincePurchase = ChronoUnit.DAYS.between(sellDate, LocalDate.now());
+        if (daysSincePurchase == 0) {
+            return getPrice();
+        }
+        if (daysSincePurchase < this.limitOfRefundsInDays) {
+            return getPrice() / 2;
+        }
+        return 0;
     }
 
     @Override

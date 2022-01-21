@@ -33,14 +33,11 @@ public class Flower extends Product implements Maintainable {
 
     @Override
     public boolean needMaintenance() {
-        if (this.lastMaintenanceDate == null && this.ageInWeeks >= numberOfWeeksInYear * frequencyOfMaintenanceInYears) {
-            return true;
+        if (this.lastMaintenanceDate == null) {
+            return (this.ageInWeeks >= numberOfWeeksInYear * frequencyOfMaintenanceInYears);
         }
-        if (this.lastMaintenanceDate != null) {
-            int dateDiffForOtherMaintain = (int) ChronoUnit.WEEKS.between(this.lastMaintenanceDate, LocalDate.now());
-            return (dateDiffForOtherMaintain >= numberOfWeeksInYear * frequencyOfMaintenanceInYears);
-        }
-        return false;
+        int dateDiffForOtherMaintain = (int) ChronoUnit.WEEKS.between(this.lastMaintenanceDate, LocalDate.now());
+        return (dateDiffForOtherMaintain >= numberOfWeeksInYear * frequencyOfMaintenanceInYears);
     }
 
     @Override
