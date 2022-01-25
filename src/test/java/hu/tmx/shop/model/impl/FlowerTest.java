@@ -27,42 +27,42 @@ class FlowerTest {
     }
 
     @Test
-    public void FirstMaintainNeedIsTrueIfFlowerOlderThan3Years(){
+    public void FirstMaintenanceNeedIsTrueIfFlowerOlderThan3Years(){
         assertTrue(flower.needMaintenance());
     }
 
     @Test
-    public void FirstMaintainNeedIsTrueIfFlower3Years(){
+    public void FirstMaintenanceNeedIsTrueIfFlower3Years(){
         flower.setAgeInWeeks(156);
         assertTrue(flower.needMaintenance());
     }
 
     @Test
-    public void SecondMaintainNeedIsTrueIfPreviousMaintenanceOlderThan3Years(){
+    public void SecondMaintenanceNeedIsTrueIfPreviousMaintenanceOlderThan3Years(){
         flower.setLastMaintenanceDate(LocalDate.now().minusWeeks(200));
         assertTrue(flower.needMaintenance());
     }
 
     @Test
-    public void FirstMaintainNeedIsFalseIfFlowerYoungerThan3Years(){
+    public void FirstMaintenanceNeedIsFalseIfFlowerYoungerThan3Years(){
         flower.setAgeInWeeks(10);
         assertFalse(flower.needMaintenance());
     }
 
     @Test
-    public void SecondMaintainNeedIsFalseIfPreviousMaintenanceYoungerThan3Years(){
+    public void SecondMaintenanceNeedIsFalseIfPreviousMaintenanceYoungerThan3Years(){
         flower.setLastMaintenanceDate(LocalDate.now().minusWeeks(52));
         assertFalse(flower.needMaintenance());
     }
 
     @Test
-    public void MaintainTypeIsCorrectIfFlowerNeedsMaintenance(){
+    public void MaintenanceTypeIsCorrectIfFlowerNeedsMaintenance(){
         assertEquals("Öntözés", flower.maintain());
         assertEquals(LocalDate.now(), flower.getLastMaintenanceDate());
     }
 
     @Test
-    public void MaintainTypeIsNullIfFlowerNoNeedMaintenance(){
+    public void MaintenanceTypeIsNullIfFlowerNoNeedMaintenance(){
         flower.setAgeInWeeks(10);
         assertNull(flower.maintain());
         assertNull(flower.getLastMaintenanceDate());
